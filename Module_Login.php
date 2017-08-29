@@ -1,21 +1,21 @@
 <?php
 namespace GDO\Login;
 
-use GDO\Core\Module;
+use GDO\Core\GDO_Module;
 use GDO\Date\GDT_Duration;
 use GDO\Template\GDT_Bar;
 use GDO\Type\GDT_Checkbox;
 use GDO\Type\GDT_Int;
 use GDO\UI\GDT_Link;
-use GDO\User\User;
+use GDO\User\GDO_User;
 
-final class Module_Login extends Module
+final class Module_Login extends GDO_Module
 {
 	##############
 	### Module ###
 	##############
 	public function isCoreModule() { return true; }
-	public function getClasses() { return ['GDO\Login\LoginAttempt', 'GDO\Login\LoginHistory']; }
+	public function getClasses() { return ['GDO\Login\GDO_LoginAttempt', 'GDO\Login\GDO_LoginHistory']; }
 	public function onLoadLanguage() { $this->loadLanguage('lang/login'); }
 	
 	##############
@@ -40,7 +40,7 @@ final class Module_Login extends Module
 	##############
 	public function hookRightBar(GDT_Bar $navbar)
 	{
-		$user = User::current();
+		$user = GDO_User::current();
 		if ($user->isGhost())
 		{
 			$navbar->addField(GDT_Link::make('signin')->label('btn_login')->href($this->getMethodHREF('Form')));

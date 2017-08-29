@@ -13,7 +13,7 @@ use GDO\User\GDT_User;
  * @since 2.0
  *
  */
-final class LoginAttempt extends GDO
+final class GDO_LoginAttempt extends GDO
 {
 	public function gdoCached() { return false; }
 	public function gdoColumns()

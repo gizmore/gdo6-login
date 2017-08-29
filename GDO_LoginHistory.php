@@ -7,7 +7,7 @@ use GDO\User\GDT_User;
 use GDO\Net\GDT_IP;
 use GDO\DB\GDT_CreatedAt;
 
-class LoginHistory extends GDO
+class GDO_LoginHistory extends GDO
 {
 	public function gdoCached() { return false; }
 	public function gdoColumns()

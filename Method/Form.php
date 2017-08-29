@@ -9,7 +9,7 @@ use GDO\Form\GDT_AntiCSRF;
 use GDO\Form\GDT_Form;
 use GDO\Form\GDT_Submit;
 use GDO\Form\MethodForm;
-use GDO\Login\LoginAttempt;
+use GDO\Login\GDO_LoginAttempt;
 use GDO\Login\Module_Login;
 use GDO\Mail\Mail;
 use GDO\Net\GDT_IP;
@@ -19,8 +19,8 @@ use GDO\Type\GDT_Checkbox;
 use GDO\Type\GDT_Password;
 use GDO\UI\GDT_Button;
 use GDO\User\GDT_Username;
-use GDO\User\Session;
-use GDO\User\User;
+use GDO\User\GDO_Session;
+use GDO\User\GDO_User;
 /**
  * Login via GWFv5 credentials form and method.
  * @author gizmore
@@ -60,7 +60,7 @@ final class Form extends MethodForm
 			return $response->add($this->renderPage());
 		}
 		
-		if ( (!($user = User::getByLogin($login))) ||
+		if ( (!($user = GDO_User::getByLogin($login))) ||
 		     (!($user->getValue('user_password')->validate($password))) )
 		{
 			return $this->loginFailed($user)->add($this->getForm()->render());
@@ -69,13 +69,13 @@ final class Form extends MethodForm
 	}
 	
 	/**
-	 * @param User $user
+	 * @param GDO_User $user
 	 * @param bool $bindIP
 	 * @return Message
 	 */
-	public function loginSuccess(User $user, bool $bindIP=false)
+	public function loginSuccess(GDO_User $user, bool $bindIP=false)
 	{
-		$session = Session::instance();
+		$session = GDO_Session::instance();
 		$session->setValue('sess_user', $user);
 		$session->setValue('sess_data', null);
 		$ip = $bindIP ? GDT_IP::current() : null;
@@ -98,7 +98,7 @@ final class Form extends MethodForm
 		# Insert attempt
 		$ip = GDT_IP::current();
 		$userid = $user ? $user->getID() : null;
-		$attempt = LoginAttempt::blank(["la_ip"=>$ip, 'la_user_id'=>$userid])->insert();
+		$attempt = GDO_LoginAttempt::blank(["la_ip"=>$ip, 'la_user_id'=>$userid])->insert();
 		
 		# Count victim attack. If only 1, we got a new threat and mail it.
 		if ($user)
@@ -125,14 +125,14 @@ final class Form extends MethodForm
 	
 	private function banData()
 	{
-		$table = LoginAttempt::table();
+		$table = GDO_LoginAttempt::table();
 		$condition = sprintf('la_ip=%s AND la_time > FROM_UNIXTIME(%d)', GDO::quoteS(GDT_IP::current()), $this->banCut());
 		return $table->select('UNIX_TIMESTAMP(MIN(la_time)), COUNT(*)')->where($condition)->exec()->fetchRow();
 	}
 	
-	private function checkSecurityThreat(User $user)
+	private function checkSecurityThreat(GDO_User $user)
 	{
-		$table = LoginAttempt::table();
+		$table = GDO_LoginAttempt::table();
 		$condition = sprintf('la_user_id=%s AND la_time > FROM_UNIXTIME(%d)', $user->getID(), $this->banCut());
 		if (1 === ($attempts = $table->countWhere($condition)))
 		{
@@ -140,7 +140,7 @@ final class Form extends MethodForm
 		}
 	}
 	
-	private function mailSecurityThreat(User $user)
+	private function mailSecurityThreat(GDO_User $user)
 	{
 		$mail = new Mail();
 		$mail->setSender(GWF_BOT_EMAIL);
