@@ -2,10 +2,10 @@
 namespace GDO\Login;
 
 use GDO\DB\GDO;
-use GDO\DB\GDO_AutoInc;
-use GDO\DB\GDO_CreatedAt;
-use GDO\Net\GDO_IP;
-use GDO\User\GDO_User;
+use GDO\DB\GDT_AutoInc;
+use GDO\DB\GDT_CreatedAt;
+use GDO\Net\GDT_IP;
+use GDO\User\GDT_User;
 /**
  * Database table for login attempts.
  * 
@@ -19,10 +19,10 @@ final class LoginAttempt extends GDO
 	public function gdoColumns()
 	{
 		return array(
-			GDO_AutoInc::make('la_id'),
-			GDO_IP::make('la_ip')->notNull(),
-			GDO_User::make('la_user_id'),
-			GDO_CreatedAt::make('la_time'),
+			GDT_AutoInc::make('la_id'),
+			GDT_IP::make('la_ip')->notNull(),
+			GDT_User::make('la_user_id'),
+			GDT_CreatedAt::make('la_time'),
 		);
 	}
 }

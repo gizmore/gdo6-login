@@ -2,10 +2,10 @@
 namespace GDO\Login;
 
 use GDO\DB\GDO;
-use GDO\DB\GDO_AutoInc;
-use GDO\User\GDO_User;
-use GDO\Net\GDO_IP;
-use GDO\DB\GDO_CreatedAt;
+use GDO\DB\GDT_AutoInc;
+use GDO\User\GDT_User;
+use GDO\Net\GDT_IP;
+use GDO\DB\GDT_CreatedAt;
 
 class LoginHistory extends GDO
 {
@@ -13,10 +13,10 @@ class LoginHistory extends GDO
 	public function gdoColumns()
 	{
 		return array(
-			GDO_AutoInc::make('lh_id'),
-			GDO_User::make('lh_user_id'),
-			GDO_IP::make('lh_ip'),
-			GDO_CreatedAt::make('lh_authenticated_at'),
+			GDT_AutoInc::make('lh_id'),
+			GDT_User::make('lh_user_id'),
+			GDT_IP::make('lh_ip'),
+			GDT_CreatedAt::make('lh_authenticated_at'),
 		);
 	}
 }

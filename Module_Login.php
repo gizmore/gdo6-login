@@ -2,11 +2,11 @@
 namespace GDO\Login;
 
 use GDO\Core\Module;
-use GDO\Date\GDO_Duration;
-use GDO\Template\GDO_Bar;
-use GDO\Type\GDO_Checkbox;
-use GDO\Type\GDO_Int;
-use GDO\UI\GDO_Link;
+use GDO\Date\GDT_Duration;
+use GDO\Template\GDT_Bar;
+use GDO\Type\GDT_Checkbox;
+use GDO\Type\GDT_Int;
+use GDO\UI\GDT_Link;
 use GDO\User\User;
 
 final class Module_Login extends Module
@@ -24,10 +24,10 @@ final class Module_Login extends Module
 	public function getConfig()
 	{
 		return array(
-			GDO_Checkbox::make('login_captcha')->initial('0'),
-			GDO_Checkbox::make('login_history')->initial('1'),
-			GDO_Duration::make('login_timeout')->initial('600')->min(10)->max(72600),
-			GDO_Int::make('login_tries')->initial('3')->min(1)->max(100),
+			GDT_Checkbox::make('login_captcha')->initial('0'),
+			GDT_Checkbox::make('login_history')->initial('1'),
+			GDT_Duration::make('login_timeout')->initial('600')->min(10)->max(72600),
+			GDT_Int::make('login_tries')->initial('3')->min(1)->max(100),
 		);
 	}
 	public function cfgCaptcha() { return $this->getConfigValue('login_captcha'); }
@@ -38,16 +38,16 @@ final class Module_Login extends Module
 	##############
 	### Navbar ###
 	##############
-	public function hookRightBar(GDO_Bar $navbar)
+	public function hookRightBar(GDT_Bar $navbar)
 	{
 		$user = User::current();
 		if ($user->isGhost())
 		{
-			$navbar->addField(GDO_Link::make('signin')->label('btn_login')->href($this->getMethodHREF('Form')));
+			$navbar->addField(GDT_Link::make('signin')->label('btn_login')->href($this->getMethodHREF('Form')));
 		}
 		else
 		{
-			$navbar->addField(GDO_Link::make('signout')->label('btn_logout', [$user->displayName()])->href($this->getMethodHREF('Logout')));
+			$navbar->addField(GDT_Link::make('signout')->label('btn_logout', [$user->displayName()])->href($this->getMethodHREF('Logout')));
 		}
 	}
 }

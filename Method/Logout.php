@@ -1,7 +1,7 @@
 <?php
 namespace GDO\Login\Method;
 
-use GDO\Core\GDO_Hook;
+use GDO\Core\GDT_Hook;
 use GDO\Core\Method;
 use GDO\User\Session;
 use GDO\User\User;
@@ -28,7 +28,7 @@ final class Logout extends Method
         $session->setValue('sess_data', null);
         $session->save();
         User::$CURRENT = User::ghost();
-        GDO_Hook::call('UserLoggedOut', $user);
+        GDT_Hook::call('UserLoggedOut', $user);
         return $this->message('msg_logged_out');
     }
 }

@@ -1,24 +1,24 @@
 <?php
 namespace GDO\Login\Method;
 
-use GDO\Captcha\GDO_Captcha;
-use GDO\Core\GDO_Hook;
+use GDO\Captcha\GDT_Captcha;
+use GDO\Core\GDT_Hook;
 use GDO\DB\GDO;
 use GDO\Date\Time;
-use GDO\Form\GDO_AntiCSRF;
-use GDO\Form\GDO_Form;
-use GDO\Form\GDO_Submit;
+use GDO\Form\GDT_AntiCSRF;
+use GDO\Form\GDT_Form;
+use GDO\Form\GDT_Submit;
 use GDO\Form\MethodForm;
 use GDO\Login\LoginAttempt;
 use GDO\Login\Module_Login;
 use GDO\Mail\Mail;
-use GDO\Net\GDO_IP;
+use GDO\Net\GDT_IP;
 use GDO\Template\Error;
 use GDO\Template\Message;
-use GDO\Type\GDO_Checkbox;
-use GDO\Type\GDO_Password;
-use GDO\UI\GDO_Button;
-use GDO\User\GDO_Username;
+use GDO\Type\GDT_Checkbox;
+use GDO\Type\GDT_Password;
+use GDO\UI\GDT_Button;
+use GDO\User\GDT_Username;
 use GDO\User\Session;
 use GDO\User\User;
 /**
@@ -32,23 +32,23 @@ final class Form extends MethodForm
     
     public function getUserType() { return 'ghost'; }
 	
-	public function createForm(GDO_Form $form)
+	public function createForm(GDT_Form $form)
 	{
-		$form->addField(GDO_Username::make('login')->tooltip('tt_login')->notNull());
-		$form->addField(GDO_Password::make('password')->notNull());
-		$form->addField(GDO_Checkbox::make('bind_ip'));
+		$form->addField(GDT_Username::make('login')->tooltip('tt_login')->notNull());
+		$form->addField(GDT_Password::make('password')->notNull());
+		$form->addField(GDT_Checkbox::make('bind_ip'));
 		if (Module_Login::instance()->cfgCaptcha())
 		{
-			$form->addField(GDO_Captcha::make());
+			$form->addField(GDT_Captcha::make());
 		}
-		$form->addField(GDO_Submit::make()->label('btn_login'));
-		$form->addField(GDO_AntiCSRF::make());
-		$form->addField(GDO_Button::make('btn_recovery')->href(href('Recovery', 'Form')));
+		$form->addField(GDT_Submit::make()->label('btn_login'));
+		$form->addField(GDT_AntiCSRF::make());
+		$form->addField(GDT_Button::make('btn_recovery')->href(href('Recovery', 'Form')));
 	
-		GDO_Hook::call('LoginForm', $form);
+		GDT_Hook::call('LoginForm', $form);
 	}
 	
-	public function formValidated(GDO_Form $form)
+	public function formValidated(GDT_Form $form)
 	{
 	    return $this->onLogin($form->getFormVar('login'), $form->getFormVar('password'), $form->getFormValue('bind_ip'));
 	}
@@ -78,11 +78,11 @@ final class Form extends MethodForm
 		$session = Session::instance();
 		$session->setValue('sess_user', $user);
 		$session->setValue('sess_data', null);
-		$ip = $bindIP ? GDO_IP::current() : null;
+		$ip = $bindIP ? GDT_IP::current() : null;
 		$session->setValue('sess_ip', $ip);
 		$session->save();
 		$user->tempReset();
-		GDO_Hook::call('UserAuthenticated', $user);
+		GDT_Hook::call('UserAuthenticated', $user);
 		return new Message('msg_authenticated', [$user->displayName()]);
 	}
 
@@ -96,7 +96,7 @@ final class Form extends MethodForm
 	public function loginFailed($user)
 	{
 		# Insert attempt
-		$ip = GDO_IP::current();
+		$ip = GDT_IP::current();
 		$userid = $user ? $user->getID() : null;
 		$attempt = LoginAttempt::blank(["la_ip"=>$ip, 'la_user_id'=>$userid])->insert();
 		
@@ -126,7 +126,7 @@ final class Form extends MethodForm
 	private function banData()
 	{
 		$table = LoginAttempt::table();
-		$condition = sprintf('la_ip=%s AND la_time > FROM_UNIXTIME(%d)', GDO::quoteS(GDO_IP::current()), $this->banCut());
+		$condition = sprintf('la_ip=%s AND la_time > FROM_UNIXTIME(%d)', GDO::quoteS(GDT_IP::current()), $this->banCut());
 		return $table->select('UNIX_TIMESTAMP(MIN(la_time)), COUNT(*)')->where($condition)->exec()->fetchRow();
 	}
 	
@@ -145,7 +145,7 @@ final class Form extends MethodForm
 		$mail = new Mail();
 		$mail->setSender(GWF_BOT_EMAIL);
 		$mail->setSubject(t('mail_subj_login_threat', [sitename()]));
-		$args = [$user->displayName(), sitename(), GDO_IP::current()];
+		$args = [$user->displayName(), sitename(), GDT_IP::current()];
 		$mail->setBody(t('mail_body_login_threat', $args));
 		$mail->sendToUser($user);
 	}
