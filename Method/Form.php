@@ -62,7 +62,7 @@ final class Form extends MethodForm
 		if ( (!($user = GDO_User::getByLogin($login))) ||
 		     (!($user->getValue('user_password')->validate($password))) )
 		{
-			return $this->loginFailed($user)->add($this->getForm()->render());
+			return $this->loginFailed($user)->addField($this->getForm());
 		}
 		return $this->loginSuccess($user, $bindIP);
 	}
