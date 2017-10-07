@@ -13,14 +13,13 @@ use GDO\Login\GDO_LoginAttempt;
 use GDO\Login\Module_Login;
 use GDO\Mail\Mail;
 use GDO\Net\GDT_IP;
-use GDO\Template\Error;
-use GDO\Template\Message;
-use GDO\Type\GDT_Checkbox;
-use GDO\Type\GDT_Password;
+use GDO\DB\GDT_Checkbox;
+use GDO\User\GDT_Password;
 use GDO\UI\GDT_Button;
 use GDO\User\GDT_Username;
 use GDO\User\GDO_Session;
 use GDO\User\GDO_User;
+use GDO\Core\GDT_Success;
 /**
  * Login via GWFv5 credentials form and method.
  * @author gizmore
@@ -53,7 +52,7 @@ final class Form extends MethodForm
 	    return $this->onLogin($form->getFormVar('login'), $form->getFormVar('password'), $form->getFormValue('bind_ip'));
 	}
 	
-	public function onLogin(string $login, string $password, bool $bindIP=false)
+	public function onLogin($login, $password, $bindIP=false)
 	{
 		if ($response = $this->banCheck())
 		{
@@ -71,9 +70,9 @@ final class Form extends MethodForm
 	/**
 	 * @param GDO_User $user
 	 * @param bool $bindIP
-	 * @return Message
+	 * @return GDT_Success
 	 */
-	public function loginSuccess(GDO_User $user, bool $bindIP=false)
+	public function loginSuccess(GDO_User $user, $bindIP=false)
 	{
 		$session = GDO_Session::instance();
 		$session->setValue('sess_user', $user);
@@ -83,7 +82,7 @@ final class Form extends MethodForm
 		$session->save();
 		$user->tempReset();
 		GDT_Hook::call('UserAuthenticated', $user);
-		return new Message('msg_authenticated', [$user->displayName()]);
+		return $this->message('msg_authenticated', [$user->displayName()]);
 	}
 
 	################
@@ -119,7 +118,7 @@ final class Form extends MethodForm
 		if ($count >= $this->maxAttempts())
 		{
 			$bannedFor = $mintime - $this->banCut();
-			return Error::error('err_login_ban', [Time::humanDuration($bannedFor)]);
+			return $this->error('err_login_ban', [Time::humanDuration($bannedFor)]);
 		}
 	}
 	

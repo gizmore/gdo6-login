@@ -3,9 +3,9 @@ namespace GDO\Login;
 
 use GDO\Core\GDO_Module;
 use GDO\Date\GDT_Duration;
-use GDO\Template\GDT_Bar;
-use GDO\Type\GDT_Checkbox;
-use GDO\Type\GDT_Int;
+use GDO\UI\GDT_Bar;
+use GDO\DB\GDT_Checkbox;
+use GDO\DB\GDT_Int;
 use GDO\UI\GDT_Link;
 use GDO\User\GDO_User;
 
@@ -43,11 +43,11 @@ final class Module_Login extends GDO_Module
 		$user = GDO_User::current();
 		if ($user->isGhost())
 		{
-			$navbar->addField(GDT_Link::make('signin')->label('btn_login')->href($this->getMethodHREF('Form')));
+			$navbar->addField(GDT_Link::make('signin')->label('btn_login')->href(href('Login', 'Form')));
 		}
 		else
 		{
-			$navbar->addField(GDT_Link::make('signout')->label('btn_logout', [$user->displayName()])->href($this->getMethodHREF('Logout')));
+			$navbar->addField(GDT_Link::make('signout')->label('btn_logout', [$user->displayName()])->href(href('Login', 'Logout')));
 		}
 	}
 }
