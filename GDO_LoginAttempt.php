@@ -1,7 +1,7 @@
 <?php
 namespace GDO\Login;
 
-use GDO\DB\GDO;
+use GDO\Core\GDO;
 use GDO\DB\GDT_AutoInc;
 use GDO\DB\GDT_CreatedAt;
 use GDO\Net\GDT_IP;
