@@ -24,9 +24,11 @@ final class Logout extends Method
         $session = GDO_Session::instance();
         $user = GDO_User::current();
         $user->tempReset();
-        $session->setValue('sess_user', null);
-        $session->setValue('sess_data', null);
+        $user->recache();
+        $session->setVar('sess_user', null);
+        $session->setVar('sess_data', null);
         $session->save();
+        $session->recache();
         GDO_User::$CURRENT = GDO_User::ghost();
         GDT_Hook::call('UserLoggedOut', $user);
         return $this->message('msg_logged_out');
