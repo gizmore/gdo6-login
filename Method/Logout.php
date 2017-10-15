@@ -13,7 +13,6 @@ use GDO\User\GDO_User;
  */
 final class Logout extends Method
 {
-
     public function isUserRequired()
     {
         return true;
