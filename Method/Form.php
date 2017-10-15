@@ -58,7 +58,6 @@ final class Form extends MethodForm
 		{
 			return $response->add($this->renderPage());
 		}
-		
 		if ( (!($user = GDO_User::getByLogin($login))) ||
 		     (!($user->getValue('user_password')->validate($password))) )
 		{
