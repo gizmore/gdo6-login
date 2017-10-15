@@ -33,6 +33,7 @@ final class Form extends MethodForm
 	
 	public function createForm(GDT_Form $form)
 	{
+		$form->action(href('Login', 'Form'));
 		$form->addField(GDT_Username::make('login')->tooltip('tt_login')->notNull());
 		$form->addField(GDT_Password::make('password')->notNull());
 		$form->addField(GDT_Checkbox::make('bind_ip'));
