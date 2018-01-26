@@ -36,7 +36,7 @@ final class Form extends MethodForm
 		$form->action(href('Login', 'Form'));
 		$form->addField(GDT_Username::make('login')->tooltip('tt_login')->notNull());
 		$form->addField(GDT_Password::make('password')->notNull());
-		$form->addField(GDT_Checkbox::make('bind_ip'));
+		$form->addField(GDT_Checkbox::make('bind_ip')->initial('1'));
 		if (Module_Login::instance()->cfgCaptcha())
 		{
 			$form->addField(GDT_Captcha::make());
