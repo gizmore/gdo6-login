@@ -83,7 +83,7 @@ final class Form extends MethodForm
 		$session->save();
 		$user->tempReset();
 		GDT_Hook::call('UserAuthenticated', $user);
-		return $this->message('msg_authenticated', [$user->displayName()]);
+		return $this->message('msg_authenticated', [$user->displayNameLabel()]);
 	}
 
 	################
