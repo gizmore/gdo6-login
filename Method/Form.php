@@ -27,9 +27,9 @@ use GDO\Core\GDT_Success;
  */
 final class Form extends MethodForm
 {
-    public function isUserRequired() { return false; }
-    
-    public function getUserType() { return 'ghost'; }
+	public function isUserRequired() { return false; }
+	
+	public function getUserType() { return 'ghost'; }
 	
 	public function createForm(GDT_Form $form)
 	{
@@ -50,7 +50,7 @@ final class Form extends MethodForm
 	
 	public function formValidated(GDT_Form $form)
 	{
-	    return $this->onLogin($form->getFormVar('login'), $form->getFormVar('password'), $form->getFormValue('bind_ip'));
+		return $this->onLogin($form->getFormVar('login'), $form->getFormVar('password'), $form->getFormValue('bind_ip'));
 	}
 	
 	public function onLogin($login, $password, $bindIP=false)
@@ -60,7 +60,7 @@ final class Form extends MethodForm
 			return $response->add($this->renderPage());
 		}
 		if ( (!($user = GDO_User::getByLogin($login))) ||
-		     (!($user->getValue('user_password')->validate($password))) )
+			 (!($user->getValue('user_password')->validate($password))) )
 		{
 			return $this->loginFailed($user)->addField($this->getForm());
 		}
