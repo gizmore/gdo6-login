@@ -81,7 +81,7 @@ final class Form extends MethodForm
 		$ip = $bindIP ? GDT_IP::current() : null;
 		$session->setValue('sess_ip', $ip);
 		$session->save();
-		$user->tempReset();
+// 		$user->tempReset();
 		GDT_Hook::call('UserAuthenticated', $user);
 		return $this->message('msg_authenticated', [$user->displayNameLabel()]);
 	}
