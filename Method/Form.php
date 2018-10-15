@@ -20,6 +20,7 @@ use GDO\User\GDT_Username;
 use GDO\User\GDO_Session;
 use GDO\User\GDO_User;
 use GDO\Core\GDT_Success;
+use GDO\DB\GDT_String;
 /**
  * Login via GWFv5 credentials form and method.
  * @author gizmore
@@ -34,7 +35,7 @@ final class Form extends MethodForm
 	public function createForm(GDT_Form $form)
 	{
 		$form->action(href('Login', 'Form'));
-		$form->addField(GDT_Username::make('login')->tooltip('tt_login')->notNull());
+		$form->addField(GDT_String::make('login')->tooltip('tt_login')->notNull());
 		$form->addField(GDT_Password::make('password')->notNull());
 		$form->addField(GDT_Checkbox::make('bind_ip')->initial('0'));
 		if (Module_Login::instance()->cfgCaptcha())
