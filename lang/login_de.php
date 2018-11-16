@@ -1,0 +1,27 @@
+<?php
+return array(
+'ft_login_form' => '[%s] Einloggen',
+'bind_ip' => 'Sitzung an IP binden?',
+'btn_login' => 'Einloggen',
+'btn_logout' => 'Ausloggen (%s)',
+		
+'msg_logged_out' => 'Sie sind nun ausgeloggt.',
+'msg_authenticated' => 'Willkommen zurück. Sie sind nun authentifiziert als %s.',
+
+'err_login_failed' => 'Einloggen fehlgeschlagen. Sie haben noch %s Versuch(e) bis Sie für %s geblockt werden.',
+'err_login_ban' => 'Bitte warten Sie %s bevor Sie es erneut versuchen.',
+#########
+'mail_subj_login_threat' => '[%s] Authentifizierungsversuch',
+'mail_body_login_threat' => '
+Hallo %s,
+
+Für Ihr Konto gab es einen fehlgeschlagenen Authentifizierungsversuch von dieser IP.
+
+%s
+
+Bitte beachten Sie das es vorerst keine weiteren Warnungen gibt, falls Ihr Konto wirklich angegriffen werden sollte.
+
+Viele Grüße,
+Das %2$s Team
+',
+);
