@@ -46,7 +46,7 @@ final class Form extends MethodForm
 		$form->addField(GDT_AntiCSRF::make());
 		$form->addField(GDT_Button::make('btn_recovery')->href(href('Recovery', 'Form')));
 	
-		GDT_Hook::call('LoginForm', $form);
+		GDT_Hook::callHook('LoginForm', $form);
 	}
 	
 	public function formValidated(GDT_Form $form)
@@ -83,7 +83,7 @@ final class Form extends MethodForm
 		$session->setValue('sess_ip', $ip);
 		$session->save();
 // 		$user->tempReset();
-		GDT_Hook::call('UserAuthenticated', $user);
+		GDT_Hook::callWithIPC('UserAuthenticated', $user);
 		return $this->message('msg_authenticated', [$user->displayNameLabel()]);
 	}
 

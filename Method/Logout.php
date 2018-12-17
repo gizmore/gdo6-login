@@ -29,7 +29,7 @@ final class Logout extends Method
 		$session->save();
 		$session->recache();
 		GDO_User::$CURRENT = GDO_User::ghost();
-		GDT_Hook::call('UserLoggedOut', $user);
+		GDT_Hook::callWithIPC('UserLoggedOut', $user);
 		return $this->message('msg_logged_out');
 	}
 }
