@@ -75,7 +75,10 @@ final class Form extends MethodForm
 	 */
 	public function loginSuccess(GDO_User $user, $bindIP=false)
 	{
-		$session = GDO_Session::instance();
+		if (!($session = GDO_Session::instance()))
+		{
+			return $this->error('err_session_required');
+		}
 		$session->setValue('sess_user', $user);
 		GDO_User::$CURRENT = $user;
 		$session->setValue('sess_data', null);
