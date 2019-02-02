@@ -17,7 +17,7 @@ Hallo %s,
 
 Für Ihr Konto gab es einen fehlgeschlagenen Authentifizierungsversuch von dieser IP.
 
-%s
+%3$s
 
 Bitte beachten Sie das es vorerst keine weiteren Warnungen gibt, falls Ihr Konto wirklich angegriffen werden sollte.
 

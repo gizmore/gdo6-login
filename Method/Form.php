@@ -149,7 +149,9 @@ final class Form extends MethodForm
 		$mail = new Mail();
 		$mail->setSender(GWF_BOT_EMAIL);
 		$mail->setSubject(t('mail_subj_login_threat', [sitename()]));
-		$args = [$user->displayName(), sitename(), GDT_IP::current()];
+		$revealIP = Module_Login::instance()->cfgFailureIPReveal();
+		$ip = $revealIP ? GDT_IP::current() : 'xx.xx.xx.xx';
+		$args = [$user->displayName(), sitename(), $ip];
 		$mail->setBody(t('mail_body_login_threat', $args));
 		$mail->sendToUser($user);
 	}
