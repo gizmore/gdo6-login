@@ -32,6 +32,11 @@ final class Form extends MethodForm
 	
 	public function getUserType() { return 'ghost'; }
 	
+	public function renderPage()
+	{
+		return $this->templatePHP('form.php', ['form'=>$this->getForm()]);
+	}
+	
 	public function createForm(GDT_Form $form)
 	{
 		$form->action(href('Login', 'Form'));
