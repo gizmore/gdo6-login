@@ -86,7 +86,7 @@ final class Form extends MethodForm
 		}
 		$session->setValue('sess_user', $user);
 		GDO_User::$CURRENT = $user;
-		$session->setValue('sess_data', null);
+// 		$session->setValue('sess_data', null);
 		$ip = $bindIP ? GDT_IP::current() : null;
 		$session->setValue('sess_ip', $ip);
 		$session->save();
