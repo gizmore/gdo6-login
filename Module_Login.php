@@ -23,7 +23,7 @@ final class Module_Login extends GDO_Module
 	##############
 	### Module ###
 	##############
-	public function isCoreModule() { return true; }
+	public function getDependencies() { return ['Captcha']; }
 	public function getClasses() { return ['GDO\Login\GDO_LoginAttempt', 'GDO\Login\GDO_LoginHistory']; }
 	public function onLoadLanguage() { $this->loadLanguage('lang/login'); }
 	
