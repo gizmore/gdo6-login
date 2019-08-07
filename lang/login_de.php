@@ -1,6 +1,12 @@
 <?php
 return array(
-'ft_login_form' => '[%s] Einloggen',
+'ft_login_form' => 'Login',
+'tt_login' => 'Enter your username or email.',
+'tt_bind_ip' => 'Lock your session to your current IP.',
+'bind_ip' => 'Lock Session to IP?',
+'btn_login' => 'Login',
+'btn_logout' => 'Logout (%s)',
+
 'bind_ip' => 'Sitzung an IP binden?',
 'btn_login' => 'Einloggen',
 'btn_logout' => 'Ausloggen (%s)',
