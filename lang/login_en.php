@@ -6,7 +6,7 @@ return array(
 'bind_ip' => 'Lock Session to IP?',
 'btn_login' => 'Login',
 'btn_logout' => 'Logout (%s)',
-		
+'login' => 'Login credentials',		
 'msg_logged_out' => 'You are now logged out.',
 'msg_authenticated' => 'Welcome back, you are now authenticated as %s.',
 

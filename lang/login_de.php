@@ -6,6 +6,7 @@ return array(
 'bind_ip' => 'Lock Session to IP?',
 'btn_login' => 'Login',
 'btn_logout' => 'Logout (%s)',
+'login' => 'Nutzerschlüssel',
 
 'bind_ip' => 'Sitzung an IP binden?',
 'btn_login' => 'Einloggen',
