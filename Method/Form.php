@@ -49,7 +49,7 @@ final class Form extends MethodForm
 		}
 		$form->addField(GDT_Submit::make()->label('btn_login'));
 		$form->addField(GDT_AntiCSRF::make());
-		$form->addField(GDT_Button::make('btn_recovery')->href(href('Recovery', 'Form')));
+// 		$form->addField(GDT_Button::make('btn_recovery')->href(href('Recovery', 'Form')));
 	
 		GDT_Hook::callHook('LoginForm', $form);
 	}
