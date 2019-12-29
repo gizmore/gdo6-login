@@ -3,9 +3,6 @@ return array(
 'ft_login_form' => 'Login',
 'tt_login' => 'Enter your username or email.',
 'tt_bind_ip' => 'Lock your session to your current IP.',
-'bind_ip' => 'Lock Session to IP?',
-'btn_login' => 'Login',
-'btn_logout' => 'Logout (%s)',
 'login' => 'Nutzerschlüssel',
 
 'bind_ip' => 'Sitzung an IP binden?',
