@@ -28,4 +28,6 @@ Bitte beachten Sie das es vorerst keine weiteren Warnungen gibt, falls Ihr Konto
 Viele Grüße,
 Das %2$s Team
 ',
+#########
+'mdescr_login_form' => 'Einloggen',
 );

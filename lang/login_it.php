@@ -25,4 +25,6 @@ In seguito NON riceve ulteriori avvertimenti, nel caso che il suo conto sia stat
 Cordiali saluti,
 Il vostro %2$s Team
 ',
+#########
+'mdescr_login_form' => 'Login',
 );

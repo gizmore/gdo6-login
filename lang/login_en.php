@@ -26,4 +26,6 @@ Please note that there will be no further messages for a while, in case your acc
 Kind Regards,
 The %2$s Team
 ',
+#########
+'mdescr_login_form' => 'Login',
 );
