@@ -2,10 +2,10 @@
 namespace GDO\Login\Method;
 
 use GDO\Captcha\GDT_Captcha;
+use GDO\Core\Application;
 use GDO\Core\GDT_Hook;
 use GDO\Core\GDO;
 use GDO\Date\Time;
-use GDO\Form\GDT_AntiCSRF;
 use GDO\Form\GDT_Form;
 use GDO\Form\GDT_Submit;
 use GDO\Form\MethodForm;
@@ -15,8 +15,6 @@ use GDO\Mail\Mail;
 use GDO\Net\GDT_IP;
 use GDO\DB\GDT_Checkbox;
 use GDO\User\GDT_Password;
-use GDO\UI\GDT_Button;
-use GDO\User\GDT_Username;
 use GDO\User\GDO_Session;
 use GDO\User\GDO_User;
 use GDO\Core\GDT_Success;
@@ -98,7 +96,7 @@ final class Form extends MethodForm
 	################
 	### Security ###
 	################
-	private function banCut() { return time() - $this->banTimeout(); }
+	private function banCut() { return Application::$TIME - $this->banTimeout(); }
 	private function banTimeout() { return Module_Login::instance()->cfgFailureTimeout(); }
 	private function maxAttempts() { return Module_Login::instance()->cfgFailureAttempts(); }
 	
@@ -107,7 +105,7 @@ final class Form extends MethodForm
 		# Insert attempt
 		$ip = GDT_IP::current();
 		$userid = $user ? $user->getID() : null;
-		$attempt = GDO_LoginAttempt::blank(["la_ip"=>$ip, 'la_user_id'=>$userid])->insert();
+		GDO_LoginAttempt::blank(["la_ip"=>$ip, 'la_user_id'=>$userid])->insert();
 		
 		# Count victim attack. If only 1, we got a new threat and mail it.
 		if ($user)
@@ -143,7 +141,7 @@ final class Form extends MethodForm
 	{
 		$table = GDO_LoginAttempt::table();
 		$condition = sprintf('la_user_id=%s AND la_time > FROM_UNIXTIME(%d)', $user->getID(), $this->banCut());
-		if (1 === ($attempts = $table->countWhere($condition)))
+		if (1 === $table->countWhere($condition))
 		{
 			$this->mailSecurityThreat($user);
 		}
