@@ -15,11 +15,13 @@ use GDO\User\GDO_User;
  * - Warnings on failed logins
  * - Login History
  * @author gizmore@wechall.net
- * @version 6.09
+ * @version 6.10
  * @since 3.00
  */
 final class Module_Login extends GDO_Module
 {
+    public $module_priority = 100;
+    
 	##############
 	### Module ###
 	##############
