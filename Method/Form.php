@@ -3,6 +3,7 @@ namespace GDO\Login\Method;
 
 use GDO\Captcha\GDT_Captcha;
 use GDO\Core\Application;
+use GDO\Core\GDT;
 use GDO\Core\GDT_Hook;
 use GDO\Core\GDO;
 use GDO\Date\Time;
@@ -19,6 +20,7 @@ use GDO\User\GDO_Session;
 use GDO\User\GDO_User;
 use GDO\Core\GDT_Success;
 use GDO\DB\GDT_String;
+use GDO\Form\GDT_Validator;
 /**
  * Login via GWFv5 credentials form and method.
  * @author gizmore
@@ -39,6 +41,7 @@ final class Form extends MethodForm
 	{
 		$form->action(href('Login', 'Form'));
 		$form->addField(GDT_String::make('login')->icon('face')->tooltip('tt_login')->notNull());
+		$form->addField(GDT_Validator::make('validateDeleted')->validator('login', [$this, 'validateDeleted']));
 		$form->addField(GDT_Password::make('password')->notNull());
 		$form->addField(GDT_Checkbox::make('bind_ip')->tooltip('tt_bind_ip')->initial('0'));
 		if (Module_Login::instance()->cfgCaptcha())
@@ -48,6 +51,24 @@ final class Form extends MethodForm
 		$form->addField(GDT_Submit::make()->label('btn_login'));
 // 		$form->addField(GDT_AntiCSRF::make());
 		GDT_Hook::callHook('LoginForm', $form);
+	}
+	
+	/**
+	 * 
+	 * @param GDT_Form $form
+	 * @param GDT $field
+	 * @param string $value
+	 */
+	public function validateDeleted(GDT_Form $form, GDT $field, $value)
+	{
+	    if ($user = GDO_User::getByLogin($value))
+	    {
+	        if ($user->isDeleted())
+	        {
+	            return $field->error('err_user_deleted');
+	        }
+	    }
+	    return true;
 	}
 	
 	public function formValidated(GDT_Form $form)
