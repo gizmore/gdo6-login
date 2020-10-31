@@ -37,7 +37,7 @@ final class Module_Login extends GDO_Module
 		return array(
 			GDT_Checkbox::make('login_captcha')->initial('0'),
 			GDT_Checkbox::make('login_history')->initial('1'),
-			GDT_Duration::make('login_timeout')->initial('600')->min(10)->max(72600),
+			GDT_Duration::make('login_timeout')->initial('10m')->min(10)->max(72600),
 			GDT_Int::make('login_tries')->initial('3')->min(1)->max(100),
 			GDT_Checkbox::make('login_warning_ip_reveal')->initial('1'), # Do not censor IP in alert mails
 		);
