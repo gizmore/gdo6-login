@@ -16,7 +16,7 @@ use GDO\Mail\Mail;
 use GDO\Net\GDT_IP;
 use GDO\DB\GDT_Checkbox;
 use GDO\User\GDT_Password;
-use GDO\User\GDO_Session;
+use GDO\Session\GDO_Session;
 use GDO\User\GDO_User;
 use GDO\Core\GDT_Success;
 use GDO\DB\GDT_String;
@@ -101,11 +101,11 @@ final class Form extends MethodForm
 		{
 			return $this->error('err_session_required');
 		}
-		$session->setValue('sess_user', $user);
+		$session->setVar('sess_user', $user->getID());
 		GDO_User::$CURRENT = $user;
 // 		$session->setValue('sess_data', null);
 		$ip = $bindIP ? GDT_IP::current() : null;
-		$session->setValue('sess_ip', $ip);
+		$session->setVar('sess_ip', $ip);
 		$session->save();
 // 		$user->tempReset();
 		GDT_Hook::callWithIPC('UserAuthenticated', $user);

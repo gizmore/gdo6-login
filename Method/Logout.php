@@ -3,7 +3,7 @@ namespace GDO\Login\Method;
 
 use GDO\Core\GDT_Hook;
 use GDO\Core\Method;
-use GDO\User\GDO_Session;
+use GDO\Session\GDO_Session;
 use GDO\User\GDO_User;
 /**
  * Logout method.
