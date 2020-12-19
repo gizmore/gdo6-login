@@ -104,9 +104,11 @@ final class Form extends MethodForm
 		$session->setVar('sess_user', $user->getID());
 		GDO_User::$CURRENT = $user;
 // 		$session->setValue('sess_data', null);
-		$ip = $bindIP ? GDT_IP::current() : null;
-		$session->setVar('sess_ip', $ip);
-		$session->save();
+        if ($bindIP)
+        {
+    		$session->setVar('sess_ip', GDT_IP::current());
+        }
+// 		$session->save();
 // 		$user->tempReset();
 		GDT_Hook::callWithIPC('UserAuthenticated', $user);
 		return $this->message('msg_authenticated', [$user->displayNameLabel()]);
