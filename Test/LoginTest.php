@@ -15,9 +15,10 @@ final class LoginTest extends TestCase
             'password' => 'incorrect',
             'bindip' => '0',
         );
-        $response = MethodTest::make()->method(Form::make())->parameters($parameters)->execute();
-        
-        var_dump($response);
+        MethodTest::make()->method(Form::make())->parameters($parameters)->execute();
+        MethodTest::make()->method(Form::make())->parameters($parameters)->execute();
+        MethodTest::make()->method(Form::make())->parameters($parameters)->execute();
+        MethodTest::make()->method(Form::make())->parameters($parameters)->execute();
     }
     
 }
