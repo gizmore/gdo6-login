@@ -1,8 +1,8 @@
 <?php
 namespace GDO\Login\Test;
 
-use PHPUnit\Framework\TestCase;
 use GDO\Tests\MethodTest;
+use GDO\Tests\TestCase;
 use GDO\Login\Method\Form;
 
 final class LoginTest extends TestCase

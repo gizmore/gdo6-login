@@ -21,9 +21,13 @@ use GDO\User\GDO_User;
 use GDO\Core\GDT_Success;
 use GDO\DB\GDT_String;
 use GDO\Form\GDT_Validator;
+use GDO\UI\GDT_Bar;
+
 /**
- * Login via GWFv5 credentials form and method.
+ * Login via GWFv6.10 credentials form and method.
+ * 
  * @author gizmore
+ * @version 6.10
  * @since 1.0
  */
 final class Form extends MethodForm
@@ -48,7 +52,9 @@ final class Form extends MethodForm
 		{
 			$form->addField(GDT_Captcha::make());
 		}
-		$form->addField(GDT_Submit::make()->label('btn_login'));
+		$cont = GDT_Bar::make('btncont')->horizontal();
+		$form->addField($cont);
+		$cont->addField(GDT_Submit::make()->label('btn_login'));
 // 		$form->addField(GDT_AntiCSRF::make());
 		GDT_Hook::callHook('LoginForm', $form);
 	}
@@ -103,13 +109,10 @@ final class Form extends MethodForm
 		}
 		$session->setVar('sess_user', $user->getID());
 		GDO_User::$CURRENT = $user;
-// 		$session->setValue('sess_data', null);
         if ($bindIP)
         {
     		$session->setVar('sess_ip', GDT_IP::current());
         }
-// 		$session->save();
-// 		$user->tempReset();
 		GDT_Hook::callWithIPC('UserAuthenticated', $user);
 		return $this->message('msg_authenticated', [$user->displayNameLabel()]);
 	}
@@ -179,4 +182,5 @@ final class Form extends MethodForm
 		$mail->setBody(t('mail_body_login_threat', $args));
 		$mail->sendToUser($user);
 	}
+	
 }
