@@ -56,7 +56,7 @@ final class Module_Login extends GDO_Module
 	##############
 	public function onInitSidebar()
 	{
-// 	    if ($this->cfgRightBar())
+	    if ($this->cfgRightBar())
 	    {
     		$user = GDO_User::current();
     		$navbar = GDT_Page::$INSTANCE->rightNav;
