@@ -8,11 +8,30 @@ use GDO\Login\Method\Logout;
 use function PHPUnit\Framework\assertTrue;
 use function PHPUnit\Framework\assertFalse;
 use GDO\User\GDO_User;
+use function PHPUnit\Framework\assertStringContainsString;
+use GDO\Core\Website;
 
 final class LoginTest extends TestCase
 {
+    public function testLoginSuccess()
+    {
+        $this->userGhost();
+        
+        $parameters = array(
+            'login' => 'gizmore',
+            'password' => '11111111',
+            'bindip' => '0',
+        );
+        
+        MethodTest::make()->method(Form::make())->parameters($parameters)->execute();
+        
+        $user1 = GDO_User::current();
+        $user2 = $this->gizmore();
+        
+        assertTrue($user1->getID() === $user2->getID(), 'Check if gizmore can login.');
+    }
     
-    public function testLoginBlocked()
+    public function testLogoutAndLoginBlocked()
     {
         $user = $this->userGizmore();
         
@@ -33,8 +52,10 @@ final class LoginTest extends TestCase
         
         MethodTest::make()->method(Form::make())->parameters($parameters)->execute();
         
-        MethodTest::make()->method(Form::make())->parameters($parameters)->execute();
-        
+        $r = MethodTest::make()->method(Form::make())->parameters($parameters)->execute();
+       
+        $html = Website::$TOP_RESPONSE->render();
+        assertStringContainsString('Please wait', $html, 'Check if login is blocked after N attempts.');
     }
     
 }
