@@ -108,7 +108,7 @@ final class Form extends MethodForm
 			return $this->error('err_session_required');
 		}
 		$session->setVar('sess_user', $user->getID());
-		GDO_User::$CURRENT = $user;
+		GDO_User::setCurrent($user);
         if ($bindIP)
         {
     		$session->setVar('sess_ip', GDT_IP::current());
