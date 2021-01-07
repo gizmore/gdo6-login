@@ -47,7 +47,7 @@ final class Form extends MethodForm
 		$form->addField(GDT_String::make('login')->icon('face')->tooltip('tt_login')->notNull());
 		$form->addField(GDT_Validator::make('validateDeleted')->validator('login', [$this, 'validateDeleted']));
 		$form->addField(GDT_Password::make('password')->notNull());
-		$form->addField(GDT_Checkbox::make('bind_ip')->tooltip('tt_bind_ip')->initial('0'));
+		$form->addField(GDT_Checkbox::make('bind_ip')->tooltip('tt_bind_ip')->initial('1'));
 		if (Module_Login::instance()->cfgCaptcha())
 		{
 			$form->addField(GDT_Captcha::make());
