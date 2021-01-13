@@ -46,6 +46,7 @@ final class Form extends MethodForm
 		$form->action(href('Login', 'Form'));
 		$form->addField(GDT_String::make('login')->icon('face')->tooltip('tt_login')->notNull());
 		$form->addField(GDT_Validator::make('validateDeleted')->validator('login', [$this, 'validateDeleted']));
+		$form->addField(GDT_Validator::make('validateType')->validator('login', [$this, 'validateType']));
 		$form->addField(GDT_Password::make('password')->notNull());
 		$form->addField(GDT_Checkbox::make('bind_ip')->tooltip('tt_bind_ip')->initial('1'));
 		if (Module_Login::instance()->cfgCaptcha())
@@ -72,6 +73,24 @@ final class Form extends MethodForm
 	        if ($user->isDeleted())
 	        {
 	            return $field->error('err_user_deleted');
+	        }
+	    }
+	    return true;
+	}
+	
+	/**
+	 * Disallow system or bot users.
+	 * @param GDT_Form $form
+	 * @param GDT $field
+	 * @param string $value
+	 */
+	public function validateType(GDT_Form $form, GDT $field, $value)
+	{
+	    if ($user = GDO_User::getByLogin($value))
+	    {
+	        if (!$user->isMember())
+	        {
+    	        return $field->error('err_user_type', [t('enum_member')]);
 	        }
 	    }
 	    return true;

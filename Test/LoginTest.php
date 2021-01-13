@@ -10,6 +10,7 @@ use function PHPUnit\Framework\assertFalse;
 use GDO\User\GDO_User;
 use function PHPUnit\Framework\assertStringContainsString;
 use GDO\Core\Website;
+use GDO\Language\Trans;
 
 final class LoginTest extends TestCase
 {
@@ -33,6 +34,7 @@ final class LoginTest extends TestCase
     
     public function testLogoutAndLoginBlocked()
     {
+        Trans::setISO('en');
         $user = $this->userGizmore();
         
         MethodTest::make()->method(Logout::make())->execute();
