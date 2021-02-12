@@ -53,10 +53,7 @@ final class Form extends MethodForm
 		{
 			$form->addField(GDT_Captcha::make());
 		}
-		$cont = GDT_Bar::make('btncont')->horizontal();
-		$form->addField($cont);
-		$cont->addField(GDT_Submit::make()->label('btn_login'));
-// 		$form->addField(GDT_AntiCSRF::make());
+		$form->actions()->addField(GDT_Submit::make()->label('btn_login'));
 		GDT_Hook::callHook('LoginForm', $form);
 	}
 	
