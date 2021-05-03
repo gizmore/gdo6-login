@@ -7,6 +7,7 @@ return array(
 'login' => 'Chiave utente',
 'btn_login' => 'Connetti',
 'btn_logout' => 'Disconnetti (%s)',
+'logout' => 'Disconnetti',
 'msg_logged_out' => 'Adesso siete sconnessi.',
 'msg_authenticated' => 'Benvenuti indietro. Siete autentificati come %s.',
 'err_user_deleted' => 'Questo account è stato contrassegnato come eliminato. Si prega di contattare un dipendente di questo sito web.',

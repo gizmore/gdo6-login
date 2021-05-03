@@ -8,7 +8,7 @@ return array(
 'bind_ip' => 'Sitzung an IP binden?',
 'btn_login' => 'Einloggen',
 'btn_logout' => 'Ausloggen (%s)',
-		
+'logout' => 'Abmelden',
 'msg_logged_out' => 'Sie sind nun ausgeloggt.',
 'msg_authenticated' => 'Willkommen zurück. Sie sind nun authentifiziert als %s.',
 
