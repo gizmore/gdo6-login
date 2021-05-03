@@ -21,14 +21,13 @@ use GDO\User\GDO_User;
 use GDO\Core\GDT_Success;
 use GDO\DB\GDT_String;
 use GDO\Form\GDT_Validator;
-use GDO\UI\GDT_Bar;
 
 /**
  * Login via GWFv6.10 credentials form and method.
  * 
  * @author gizmore
- * @version 6.10
- * @since 1.0
+ * @version 6.10.1
+ * @since 1.0.0
  */
 final class Form extends MethodForm
 {
