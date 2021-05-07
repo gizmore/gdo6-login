@@ -26,7 +26,7 @@ use GDO\Form\GDT_Validator;
  * Login via GWFv6.10 credentials form and method.
  * 
  * @author gizmore
- * @version 6.10.1
+ * @version 6.10.2
  * @since 1.0.0
  */
 final class Form extends MethodForm
@@ -103,8 +103,13 @@ final class Form extends MethodForm
 		{
 			return $response->add($this->renderPage());
 		}
-		if ( (!($user = GDO_User::getByLogin($login))) ||
-			 (!($user->getValue('user_password')->validate($password))) )
+		
+		$user = GDO_User::getByLogin($login);
+		$password = $user ? $user->getValue('user_password') : null;
+		
+		if ( (!$user) ||
+		     (!$password) ||
+			 (!$password->validate($password)) )
 		{
 			return $this->loginFailed($user)->add($this->renderPage());
 		}
