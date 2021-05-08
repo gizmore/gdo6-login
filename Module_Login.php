@@ -44,7 +44,7 @@ final class Module_Login extends GDO_Module
 			GDT_Checkbox::make('login_right_bar')->initial('1'),
 		];
 	}
-	public function cfgCaptcha() { return $this->getConfigValue('login_captcha'); }
+	public function cfgCaptcha() { return module_enabled('Captcha') && $this->getConfigValue('login_captcha'); }
 	public function cfgHistory() { return $this->getConfigValue('login_history'); }
 	public function cfgFailureTimeout() { return $this->getConfigValue('login_timeout'); }
 	public function cfgFailureAttempts() { return $this->getConfigValue('login_tries'); }
