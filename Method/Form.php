@@ -101,7 +101,7 @@ final class Form extends MethodForm
 	{
 		if ($response = $this->banCheck())
 		{
-			return $response->add($this->renderPage());
+			return $response->addField($this->renderPage());
 		}
 		
 		$user = GDO_User::getByLogin($login);
@@ -111,7 +111,7 @@ final class Form extends MethodForm
 		     (!$hash) ||
 		     (!$hash->validate($password)) )
 		{
-			return $this->loginFailed($user)->add($this->renderPage());
+			return $this->loginFailed($user)->addField($this->renderPage());
 		}
 		return $this->loginSuccess($user, $bindIP);
 	}
