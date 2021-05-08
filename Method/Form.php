@@ -105,11 +105,11 @@ final class Form extends MethodForm
 		}
 		
 		$user = GDO_User::getByLogin($login);
-		$password = $user ? $user->getValue('user_password') : null;
+		$hash = $user ? $user->getValue('user_password') : null;
 		
 		if ( (!$user) ||
-		     (!$password) ||
-			 (!$password->validate($password)) )
+		     (!$hash) ||
+		     (!$hash->validate($password)) )
 		{
 			return $this->loginFailed($user)->add($this->renderPage());
 		}
@@ -194,7 +194,7 @@ final class Form extends MethodForm
 	private function mailSecurityThreat(GDO_User $user)
 	{
 		$mail = new Mail();
-		$mail->setSender(GWF_BOT_EMAIL);
+		$mail->setSender(GDO_BOT_EMAIL);
 		$mail->setSubject(t('mail_subj_login_threat', [sitename()]));
 		$revealIP = Module_Login::instance()->cfgFailureIPReveal();
 		$ip = $revealIP ? GDT_IP::current() : 'xx.xx.xx.xx';
