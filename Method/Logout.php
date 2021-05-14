@@ -10,7 +10,7 @@ use GDO\User\GDO_User;
  * Logout method.
  * 
  * @author gizmore
- * @version 6.10.1
+ * @version 6.10.3
  * @since 1.0.0
  */
 final class Logout extends Method
@@ -26,7 +26,7 @@ final class Logout extends Method
 		$session->setVar('sess_user', null);
 		$session->setVar('sess_data', null);
 		$session->save();
-		GDO_User::$CURRENT = GDO_User::ghost();
+		GDO_User::setCurrent(GDO_User::ghost());
 		GDT_Hook::callWithIPC('UserLoggedOut', $user);
 		return $this->message('msg_logged_out');
 	}

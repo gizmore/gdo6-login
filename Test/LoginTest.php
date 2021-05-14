@@ -39,7 +39,7 @@ final class LoginTest extends TestCase
         
         MethodTest::make()->method(Logout::make())->execute();
         
-        $user = GDO_User::$CURRENT;
+        $user = GDO_User::current();
         assertFalse($user->isAuthenticated());
         
         $parameters = array(
