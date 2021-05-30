@@ -15,8 +15,6 @@ use GDO\User\GDO_User;
  */
 final class Logout extends Method
 {
-	public function isUserRequired() { return true; }
-	
 	public function getTitleLangKey() { return 'logout'; }
 
 	public function execute()

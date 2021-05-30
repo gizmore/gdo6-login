@@ -60,7 +60,7 @@ final class Module_Login extends GDO_Module
 	    {
     		$user = GDO_User::current();
     		$navbar = GDT_Page::$INSTANCE->rightNav;
-    		if ($user->isGhost())
+    		if (!$user->isUser())
     		{
     			$navbar->addField(GDT_Link::make('signin')->label('btn_login')->href(href('Login', 'Form')));
     		}

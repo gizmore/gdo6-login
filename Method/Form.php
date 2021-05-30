@@ -33,7 +33,7 @@ final class Form extends MethodForm
 {
 	public function isUserRequired() { return false; }
 	
-	public function getUserType() { return 'ghost'; }
+	public function getUserType() { return ['ghost', 'guest']; }
 	
 	public function renderPage()
 	{
