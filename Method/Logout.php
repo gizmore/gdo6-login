@@ -21,6 +21,7 @@ final class Logout extends Method
 	{
 		$session = GDO_Session::instance();
 		$user = GDO_User::current();
+		GDT_Hook::callHook('BeforeLogout', $user);
 		$session->setVar('sess_user', null);
 		$session->setVar('sess_data', null);
 		$session->save();

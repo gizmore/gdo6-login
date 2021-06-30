@@ -29,7 +29,7 @@ final class LoginTest extends TestCase
         $user1 = GDO_User::current();
         $user2 = $this->gizmore();
         
-        assertTrue($user1->getID() === $user2->getID(), 'Check if gizmore can login.');
+        assertTrue($user1 === $user2, 'Check if gizmore can login.');
     }
     
     public function testLogoutAndLoginBlocked()
