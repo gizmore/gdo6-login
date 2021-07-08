@@ -19,12 +19,14 @@ final class Logout extends Method
 
 	public function execute()
 	{
-		$session = GDO_Session::instance();
 		$user = GDO_User::current();
 		GDT_Hook::callHook('BeforeLogout', $user);
-		$session->setVar('sess_user', null);
-		$session->setVar('sess_data', null);
-		$session->save();
+		if ($session = GDO_Session::instance())
+		{
+    		$session->setVar('sess_user', null);
+    		$session->setVar('sess_data', null);
+    		$session->save();
+		}
 		GDO_User::setCurrent(GDO_User::ghost());
 		GDT_Hook::callWithIPC('UserLoggedOut', $user);
 		return $this->message('msg_logged_out');
